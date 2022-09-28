@@ -20,5 +20,18 @@ namespace TestingWebApi.Repository
             }
             return null;
         }
+
+        public async Task<IEnumerable<Message>> FetchData(string procName)
+        {
+            ConfigurationManager configurationManager = new ConfigurationManager();
+            using (var _sqlConnection = new SqlConnection("Data Source=localhost;Initial Catalog=RevisionMVC;Integrated Security=True"))
+            {
+
+                await _sqlConnection.OpenAsync();
+                DynamicParameters dynamic = new DynamicParameters();
+                return await _sqlConnection.QueryAsync<Message>(procName, dynamic, commandType: CommandType.StoredProcedure);
+            }
+            return null;
+        }
     }
 }

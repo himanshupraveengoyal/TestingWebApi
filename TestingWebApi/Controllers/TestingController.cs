@@ -25,5 +25,13 @@ namespace TestingWebApi.Controllers
                 ));
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("FetchData")]
+        public async Task<ActionResult> FetchData()
+        {
+            Object result = JsonConvert.SerializeObject(await _testingRepository.FetchData("SP_FetchData"));
+            return Ok(result);
+        }
     }
 }
